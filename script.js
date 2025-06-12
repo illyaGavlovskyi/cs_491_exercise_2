@@ -1,0 +1,5 @@
+var box = 
+
+function renderBoard() {
+    
+}
