@@ -9,17 +9,27 @@ const winConditions = [
 
 var boardPlacement = Array(9).fill("");
 var currentPlayer = "X";
-var gameOver = false;
 var moveCount = 0;
+var gameOver = false;
+var startPhase = true;
 
 startGame();
 
 function startGame() {
-    cells.forEach((cell => cell.addEventListener("click", clickCell())));
-    
+    controler.addEventListener("click", clickButton);     
+    cells.forEach((cell => cell.addEventListener("click", clickCell)));
+}
+
+function clickButton() {
+    resetGame();
+    controler.textContent = "Reset Game";
+    statusText.textContent = "Player X's turn make 2 moves";
 }
 
 function clickCell() {
+    if(gameOver) {
+        return;
+    }
 
 }
 
