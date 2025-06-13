@@ -46,5 +46,13 @@ function checkWin() {
 }
 
 function resetGame() {
-
+    boardPlacement = Array(9).fill("");
+    currentPlayer = "X";
+    moveCount = 0;
+    playerMoveCount = 0;
+    gameOver = false;
+    startPhase = true;
+    controler.textContent = "Start";
+    statusText.textContent = "Click Start to begin!";
 }
+
