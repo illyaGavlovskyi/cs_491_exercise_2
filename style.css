@@ -1,0 +1,22 @@
+table {
+    border-collapse: collapse;
+
+}
+
+td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+button {
+    margin-top: 20px;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
