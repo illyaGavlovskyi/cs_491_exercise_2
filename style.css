@@ -17,6 +17,12 @@ button {
     margin-top: 20px;
 }
 
+.cell {
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .layout {
     display: flex;
     flex-direction: column;
