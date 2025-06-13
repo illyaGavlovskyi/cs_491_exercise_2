@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class = "layout">
-            <table id = "board"></table>
-            <button id = "control">Start</button>
-            <script src='script.js'></script> 
-        </div>
-        
 
-    </body>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <h1>Tic Tac Toe</h1>
+        <table id="board">
+            <tr>
+                <td id="box_1"></td>
+                <td id="box_2"></td>
+                <td id="box_3"></td>
+            </tr>
+            <tr>
+                <td id="box_4"></td>
+                <td id="box_5"></td>
+                <td id="box_6"></td>
+            </tr>
+            <tr>
+                <td id="box_7"></td>
+                <td id="box_8"></td>
+                <td id="box_9"></td>
+            </tr>
+        </table>
+        <h2 id="statusText">Game Status</h2>
+        <button id="control">Start</button>
+    </div>
+    <script src='script.js'></script>
+</body>
+
 </html>
