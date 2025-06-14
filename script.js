@@ -97,6 +97,9 @@ function checkWin() {
         let valC = boardPlacement[c];
 
         if (valA && valA === valB && valA === valC) {
+            cells[a].style.color = "red";
+            cells[b].style.color = "red";
+            cells[c].style.color = "red";
             return { win: true, player: valA };
         }
     }
@@ -159,6 +162,9 @@ function resetGame() {
     });
     controler.textContent = "Start";
     statusText.textContent = "Click Start to begin!";
+    for(let i = 0; i < cells.length; i++) {
+        cells[i].style.color = "black";
+    }
 }
 
 function endGame(result) {
