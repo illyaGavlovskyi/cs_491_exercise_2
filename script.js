@@ -87,26 +87,64 @@ function swopPlayer() {
 }
 
 function checkWin() {
-    for (let condition of winConditions) {
-        const [a, b, c] = condition;
-        if (boardPlacement[a] && boardPlacement[a] === boardPlacement[b] && boardPlacement[a] === boardPlacement[c]) {
-            return { win: true, player: boardPlacement[a] };
+    for (let i = 0; i < winConditions.length; i++) {
+        let a = winConditions[i][0];
+        let b = winConditions[i][1];
+        let c = winConditions[i][2];
+
+        let valA = boardPlacement[a];
+        let valB = boardPlacement[b];
+        let valC = boardPlacement[c];
+
+        if (valA && valA === valB && valA === valC) {
+            return { win: true, player: valA };
         }
     }
-    if (moveCount === 9) {
+
+    if (moveCount >= 9) {
         return { win: false, player: null };
     }
+
     return { win: false, player: null };
 }
 
 function getComputerMove() {
-    let availableMoves = [];
-    for (let i = 0; i < boardPlacement.length; i++) {
-        if (boardPlacement[i] === "") {
-            availableMoves.push(i);
+    for(let i = 0; i < winConditions.length; i++) {
+        let a = winConditions[i][0];
+        let b = winConditions[i][1];
+        let c = winConditions[i][2];
+        if (boardPlacement[a] === "O" && boardPlacement[b] === "O" && boardPlacement[c] === ""){
+            return c;
+        }
+        if (boardPlacement[a] === "O" && boardPlacement[c] === "O" && boardPlacement[b] === ""){
+            return b;
+        }
+        if (boardPlacement[b] === "O" && boardPlacement[c] === "O" && boardPlacement[a] === ""){
+            return a;
         }
     }
-    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+    for(let i = 0; i < winConditions.length; i++) {
+        let a = winConditions[i][0];
+        let b = winConditions[i][1];
+        let c = winConditions[i][2];
+        if (boardPlacement[a] === "X" && boardPlacement[b] === "X" && boardPlacement[c] === ""){
+            return c;
+        } 
+        if (boardPlacement[a] === "X" && boardPlacement[c] === "X" && boardPlacement[b] === ""){
+            return b;
+        } 
+        if (boardPlacement[b] === "X" && boardPlacement[c] === "X" && boardPlacement[a] === ""){
+            return a;
+        }
+    }
+    if(boardPlacement[4] === ""){
+        return 4;
+    } 
+    for(let i = 0; i < boardPlacement.length; i++) {
+        if (boardPlacement[i] === "") {
+            return i;
+        }
+    }
 }
 
 function resetGame() {
@@ -123,3 +161,13 @@ function resetGame() {
     statusText.textContent = "Click Start to begin!";
 }
 
+function endGame(result) {
+    gameOver = true;
+    if(result.player) {
+        statusText.textContent = "Player " + result.player + " wins!";
+    } 
+    else {
+        statusText.textContent = "It's a draw!";
+    }
+    controler.textContent = "Restart Game";
+}
