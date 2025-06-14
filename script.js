@@ -17,7 +17,7 @@ var startPhase = true;
 startGame();
 
 function startGame() {
-    controler.addEventListener("click", clickButton);     
+    controler.addEventListener("click", clickButton);
     cells.forEach((cell, index) => cell.addEventListener("click", () => clickCell(index)));
 }
 
@@ -28,10 +28,10 @@ function clickButton() {
 }
 
 function clickCell(index) {
-    if(gameOver === true) {
+    if (gameOver === true) {
         return;
     }
-    if(boardPlacement[index] !== ""){
+    if (boardPlacement[index] !== "") {
         return;
     }
     updateCell(cells[index], index);
@@ -46,19 +46,19 @@ function clickCell(index) {
         endGame(result);
         return;
     }
-    if(playerMoveCount >= 2){
+    if (playerMoveCount >= 2) {
         startPhase = false;
         setTimeout(computerMove, 1000);
     }
 }
 
-function updateCell(cell, index){
+function updateCell(cell, index) {
     boardPlacement[index] = currentPlayer;
     cell.textContent = currentPlayer;
 }
 
 function computerMove() {
-    if(gameOver === true) {
+    if (gameOver === true) {
         return;
     }
 
@@ -68,10 +68,17 @@ function computerMove() {
     moveCount++;
     swopPlayer();
 
+    var result = checkWin();
+    if (result.win === true) {
+        endGame(result);
+    }
+    else {
+        statusText.textContent = `Players turn`;
+    }
 }
 
 function swopPlayer() {
-    if(currentPlayer === "X") {
+    if (currentPlayer === "X") {
         currentPlayer = "O";
     }
     else {
@@ -80,17 +87,26 @@ function swopPlayer() {
 }
 
 function checkWin() {
-
+    for (let condition of winConditions) {
+        const [a, b, c] = condition;
+        if (boardPlacement[a] && boardPlacement[a] === boardPlacement[b] && boardPlacement[a] === boardPlacement[c]) {
+            return { win: true, player: boardPlacement[a] };
+        }
+    }
+    if (moveCount === 9) {
+        return { win: false, player: null };
+    }
+    return { win: false, player: null };
 }
 
-function swopPlayer() {
-    if(currentPlayer === "X"){
-        if(playerMoveCount >= 2){
-            currentPlayer = "O";
+function getComputerMove() {
+    let availableMoves = [];
+    for (let i = 0; i < boardPlacement.length; i++) {
+        if (boardPlacement[i] === "") {
+            availableMoves.push(i);
         }
-    } else {
-        currentPlayer = "X";
     }
+    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
 }
 
 function resetGame() {
@@ -100,6 +116,9 @@ function resetGame() {
     playerMoveCount = 0;
     gameOver = false;
     startPhase = true;
+    cells.forEach(cell => {
+        cell.textContent = "";
+    });
     controler.textContent = "Start";
     statusText.textContent = "Click Start to begin!";
 }
